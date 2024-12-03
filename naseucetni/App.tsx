@@ -4,8 +4,7 @@ import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
-import { RouteProp } from '@react-navigation/native';
+import type { RouteProp } from '@react-navigation/native';
 
 // Import your screens
 import HomePage from './HomePage'; 
@@ -14,31 +13,30 @@ import PhotoScreen from './PhotoScreen';
 
 // Define the parameter list for the bottom tab navigator
 type TabParamList = {
-  Doklady: undefined; // No parameters for this screen
-  Scanner: undefined; // No parameters for this screen
-  Nápověda: undefined; // No parameters for this screen
+  Doklady: undefined;
+  Scanner: undefined;
+  Nápověda: undefined;
 };
 
-const Tab = createBottomTabNavigator(); // Removed type argument
+const Tab = createBottomTabNavigator();
 
-export default function App() {
+const App: React.FC = () => {
   return (
     <>
       <StatusBar style="light" />
       <NavigationContainer>
         <Tab.Navigator
-          screenOptions={({ route, navigation }: { route: RouteProp<any, string>; navigation: any }): BottomTabNavigationOptions => {
-            // Type assertion to ensure route is of the expected type
-            const tabRoute = route as RouteProp<TabParamList, keyof TabParamList>;
-
+          screenOptions={({ route }: { route: RouteProp<any, any> }) => {
             return {
               tabBarStyle: {
-                backgroundColor: '#060663',
+                backgroundColor: '#060663', // Tab bar background color
+                height: 80, // Increased height to make the tab larger
               },
-              tabBarIcon: ({ color }) => {
+              tabBarIcon: ({ color }: { color: string; size: number }) => {
                 let iconName: string;
 
-                switch (tabRoute.name) {
+                // Set the icon name based on the route
+                switch (route.name) {
                   case 'Doklady':
                     iconName = 'home';
                     break;
@@ -49,13 +47,14 @@ export default function App() {
                     iconName = 'help';
                     break;
                   default:
-                    iconName = 'alert-circle'; // Fallback icon
+                    iconName = 'alert-circle';
                 }
 
                 return (
                   <MaterialCommunityIcons
                     name={iconName as keyof typeof MaterialCommunityIcons.glyphMap}
-                    color={color}
+                    color={color} // Button icon color
+                    size={30} // Adjust the size of the icons as necessary
                   />
                 );
               },
@@ -79,3 +78,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;

@@ -6,16 +6,16 @@ interface SettingsScreenProps {} // Optional: Define props interface
 const SettingsScreen: React.FC<SettingsScreenProps> = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Podpora</Text>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', color:`#C00006`  }}>Podpora</Text>
 
-      <Text style={{ fontSize: 16 }}>V případě nutnosti můžete volat telefonickou podporu ve všední dny od 10:00 do 15:00</Text>
+      <Text style={{ fontSize: 16, color:`#060663` }}>V případě nutnosti můžete volat telefonickou podporu ve všední dny od 10:00 do 15:00</Text>
 
-      <View style={{ borderWidth: 1, borderColor: '#ccc', padding: 10, marginTop: 20 }}>
+      <View style={{ borderWidth: 1, borderColor: `#060663`, padding: 12, marginTop: 20 }}>
         <Text style={{ fontSize: 18, fontWeight: 'bold' }}>IT podpora:</Text>
         <Text>Jméno: Daniela Fedorková</Text>
         <Text>Email: daniela@foto4life.eu</Text>
         <TouchableOpacity onPress={() => Linking.openURL('tel:773212001')}>
-          <Text style={{ color: 'blue' }}>Tel číslo: 773 212 001</Text>
+          <Text style={{ color:`#060663` }}>Tel číslo: 773 212 001</Text>
         </TouchableOpacity>
       </View>
 
