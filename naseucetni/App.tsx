@@ -8,9 +8,9 @@ import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { RouteProp } from '@react-navigation/native';
 
 // Import your screens
-import HomePage from '../screens/HomePage';
-import SettingsScreen from '../screens/SettingScreen'; 
-import PhotoScreen from '../screens/PhotoScreen'; 
+import HomePage from './HomePage'; 
+import SettingsScreen from './SettingScreen'; 
+import PhotoScreen from './PhotoScreen'; 
 
 // Define the parameter list for the bottom tab navigator
 type TabParamList = {
