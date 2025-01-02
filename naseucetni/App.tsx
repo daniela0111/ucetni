@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RouteProp } from '@react-navigation/native';
 
-// Import your screens
+// Import screens
 import HomePage from './HomePage'; 
 import SettingsScreen from './SettingScreen'; 
 import PhotoScreen from './PhotoScreen'; 

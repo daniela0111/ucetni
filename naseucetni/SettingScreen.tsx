@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Linking, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Linking, Image , StyleSheet} from 'react-native';
 
 interface SettingsScreenProps {} // Optional: Define props interface
 
 const SettingsScreen: React.FC<SettingsScreenProps> = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Image source={require('./assets/logo.png')} />
+      <Image source={require('./assets/logo.png')} style={styles.logo}/>
       <Text style={{ fontSize: 20, fontWeight: 'bold', color:`#C00006`  }}>Podpora</Text>
 
       <Text style={{ fontSize: 16, color:`#060663` }}>V případě nutnosti můžete volat telefonickou podporu ve všední dny od 10:00 do 15:00</Text>
@@ -35,3 +35,14 @@ const SettingsScreen: React.FC<SettingsScreenProps> = () => {
 };
 
 export default SettingsScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center', // Center horizontally
+  },
+  logo: {
+    width: '100%', 
+    resizeMode: 'contain', // Adjust image resizing as needed
+    marginTop: 20, // Add top margin for spacing
+  }})
