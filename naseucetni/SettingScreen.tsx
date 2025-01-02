@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, Linking, Image } from 'react-native';
 
 interface SettingsScreenProps {} // Optional: Define props interface
 
 const SettingsScreen: React.FC<SettingsScreenProps> = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Image source={require('./assets/logo.png')} />
       <Text style={{ fontSize: 20, fontWeight: 'bold', color:`#C00006`  }}>Podpora</Text>
 
       <Text style={{ fontSize: 16, color:`#060663` }}>V případě nutnosti můžete volat telefonickou podporu ve všední dny od 10:00 do 15:00</Text>
@@ -24,7 +25,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = () => {
         <Text>Jméno: Danielle Fedorková</Text>
         <Text>Email: daniela@naseucetni.eu</Text>
         <TouchableOpacity onPress={() => Linking.openURL('tel:777117667')}>
-          <Text style={{ color: 'blue' }}>Tel číslo: 777 117 667</Text>
+          <Text style={{ color: '#060663' }}>Tel číslo: 777 117 667</Text>
         </TouchableOpacity>
       </View>
 
