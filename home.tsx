@@ -1,42 +1,35 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 
-interface HomePageProps {
-  navigation: any; // Assuming you're using React Navigation
-}
-
-const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
-  const handlePress = (page: string) => {
-    // Implement navigation logic here
-    navigation.navigate(page); 
-  };
-
+const HomePage = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Domovská stránka</Text>
-      <View style={styles.imageContainer}>
-        <TouchableOpacity onPress={() => handlePress('DokladyVydane')}>
-          <Image source={require('/Users/danielafedorkova/Documents/GitHub/ucetni/naseucetni/assets/doklady_vydane.png')} style={styles.image} />
-          <Text style={styles.imageText}>Doklady vydané</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.imageContainer}>
-        <TouchableOpacity onPress={() => handlePress('DokladyPrijate')}>
-          <Image source={require('./assets/dokldy_prijate.png')} style={styles.image} />
-          <Text style={styles.imageText}>Doklady přijaté</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.imageContainer}>
-        <TouchableOpacity onPress={() => handlePress('Uctenky')}>
-          <Image source={require('./assets/uctenky.png')} style={styles.image} />
-          <Text style={styles.imageText}>Účtenky</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.imageContainer}>
-        <TouchableOpacity onPress={() => handlePress('OstatniDoklady')}>
-          <Image source={require('./assets/ostatni_dokldy.png')} style={styles.image} />
-          <Text style={styles.imageText}>Ostatní doklady</Text>
-        </TouchableOpacity>
+      <Image source={require('./assets/logo.png')} style={styles.logo} /> 
+
+      <View style={styles.buttonsContainer}>
+        <View style={styles.row}> 
+          <TouchableOpacity onPress={() => handlePress('DokladyVydane')}>
+            <Image source={require('./assets/dokladyvydane.png')}></Image>
+            <Text style={styles.buttonText}>Doklady vydané</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => handlePress('DokladyPrijate')}>
+            <Image source={require('./assets/dokladyprijate.png')}></Image>
+            <Text style={styles.buttonText}>Doklady přijaté</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.row}> 
+          <TouchableOpacity onPress={() => handlePress('Uctenky')}>
+            <Image source={require('./assets/uctenky.png')}></Image>
+            <Text style={styles.buttonText}>Účtenky</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => handlePress('OstatniDoklady')}>
+            <Image source={require('./assets/ostatnidoklady.png')}></Image>
+            <Text style={styles.buttonText}>Ostatní Doklady</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -45,24 +38,32 @@ const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center', 
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
+  logo: {
+    width: '100%', 
+    resizeMode: 'contain', 
+    marginTop: 20, 
   },
-  imageContainer: {
-    marginBottom: 20,
+  buttonsContainer: {
+    marginTop: 20, 
+    flexDirection: 'column', // Arrange buttons in columns
   },
-  image: {
-    width: 200,
-    height: 200,
+  row: {
+    flexDirection: 'row', // Arrange buttons in rows within each column
+    justifyContent: 'space-between', // Space buttons evenly within each row
+    width: '80%', // Adjust width as needed
   },
-  imageText: {
+  buttonText: {
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
     textAlign: 'center',
-    marginTop: 10,
   },
 });
 
 export default HomePage;
+
+function handlePress(arg0: string): void {
+  throw new Error('Function not implemented.');
+}
