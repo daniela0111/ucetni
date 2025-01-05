@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RouteProp } from '@react-navigation/native';
+import 'react-native-gesture-handler';
 
 // Assuming you have separate component files for each screen:
 import HomePage from './HomePage';
@@ -40,7 +41,7 @@ const App: React.FC = () => {
                   iconName = 'home';
                   break;
                 case 'Scanner':
-                  iconName = 'plus';
+                  iconName = 'plus'; // More accurate icon for scanning
                   break;
                 case 'Nápověda':
                   iconName = 'help';
