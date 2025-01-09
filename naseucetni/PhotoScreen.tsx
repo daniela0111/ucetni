@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginBottom: 20, // Add marginBottom to buttonContainer
   },
   documentButton: {
     backgroundColor: 'blue',
@@ -122,12 +123,14 @@ const PhotoScreen: React.FC<PhotoScreenProps> = () => {
             style={styles.preview}
             source={{ uri: `data:image/jpg;base64,${photo.base64}` }}
           />
-          <TouchableOpacity onPress={handleShare}>
-            <Text>Share</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleSave}>
-            <Text>Save</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonContainer}> 
+            <TouchableOpacity onPress={handleShare}>
+              <Text>Share</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleSave}>
+              <Text>Save</Text>
+            </TouchableOpacity>
+          </View> 
         </SafeAreaView>
       ) : (
         <View style={styles.cameraContainer}>
@@ -135,6 +138,12 @@ const PhotoScreen: React.FC<PhotoScreenProps> = () => {
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
                 {/* No need to explicitly specify children for TouchableOpacity */}
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.documentButton}>
+                <Text style={styles.buttonText}>Document</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.helpButton}>
+                <Text style={styles.buttonText}>?</Text>
               </TouchableOpacity>
             </View>
           </Camera>
