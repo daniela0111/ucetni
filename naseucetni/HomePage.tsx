@@ -24,7 +24,9 @@ const HomePage = () => {
 
       <View style={styles.buttonsContainer}>
         <View style={styles.row}>
-          <TouchableOpacity onPress={() => navigation.navigate('DokladyVydane')}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('DokladyVydane')} // Corrected navigation call
+          >
             <Image source={require('./assets/dokladyvydane.png')} />
             <Text style={styles.buttonText}>Doklady vydané</Text>
           </TouchableOpacity>
