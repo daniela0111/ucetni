@@ -5,6 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RouteProp } from '@react-navigation/native';
+import { useEffect, useRef, useState } from 'react';
+import { Camera } from 'expo-camera';
+import { shareAsync} from 'expo-sharing';
+import * as MediaLibrary from 'expo-media-library';
 import 'react-native-gesture-handler';
 
 // Assuming you have separate component files for each screen:
