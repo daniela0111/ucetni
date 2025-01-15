@@ -9,7 +9,7 @@ type RootStackParamList = {
   DokladyPrijate: undefined;
   Uctenky: undefined;
   OstatniDoklady: undefined;
-  HomePage: undefined; // Add HomePage to the RootStackParamList
+  HomePage: undefined; 
 };
 
 // Define the navigation prop type for the HomePage
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center', // Center content vertically
+    justifyContent: 'center', 
   },
   logo: {
     width: '100%',
@@ -66,12 +66,12 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     marginTop: 20,
-    flexDirection: 'column', // Arrange buttons in columns
+    flexDirection: 'column', 
   },
   row: {
-    flexDirection: 'row', // Arrange buttons in rows within each column
-    justifyContent: 'space-between', // Space buttons evenly within each row
-    width: '80%', // Adjust width as needed
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    width: '80%', 
   },
   buttonText: {
     padding: 10,
