@@ -9,7 +9,7 @@ type RootStackParamList = {
   DokladyPrijate: undefined;
   Uctenky: undefined;
   OstatniDoklady: undefined;
-  HomePage: undefined; // Add HomePage to the RootStackParamList
+  HomePage: undefined; 
 };
 
 // Define the navigation prop type for the HomePage
@@ -24,26 +24,36 @@ const HomePage = () => {
 
       <View style={styles.buttonsContainer}>
         <View style={styles.row}>
-          <TouchableOpacity onPress={() => navigation.navigate('DokladyVydane')}>
-            <Image source={require('./assets/dokladyvydane.png')} />
-            <Text style={styles.buttonText}>Doklady vydané</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('DokladyVydane')} 
+          >
+            <View style={{ alignItems: 'center' }}> 
+              <Image source={require('./assets/dokladyvydane.png')} />
+              <Text style={styles.buttonText}>Doklady vydané</Text>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('DokladyPrijate')}>
-            <Image source={require('./assets/dokladyprijate.png')} />
-            <Text style={styles.buttonText}>Doklady přijaté</Text>
+            <View style={{ alignItems: 'center' }}> 
+              <Image source={require('./assets/dokladyprijate.png')} />
+              <Text style={styles.buttonText}>Doklady přijaté</Text>
+            </View>
           </TouchableOpacity>
         </View>
 
         <View style={styles.row}>
           <TouchableOpacity onPress={() => navigation.navigate('Uctenky')}>
-            <Image source={require('./assets/uctenky.png')} />
-            <Text style={styles.buttonText}>Účtenky</Text>
+            <View style={{ alignItems: 'center' }}> 
+              <Image source={require('./assets/uctenky.png')} />
+              <Text style={styles.buttonText}>Účtenky</Text>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('OstatniDoklady')}>
-            <Image source={require('./assets/ostatnidoklady.png')} />
-            <Text style={styles.buttonText}>Ostatní Doklady</Text>
+            <View style={{ alignItems: 'center' }}> 
+              <Image source={require('./assets/ostatnidoklady.png')} />
+              <Text style={styles.buttonText}>Ostatní Doklady</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -55,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center', // Center content vertically
+    justifyContent: 'center', 
   },
   logo: {
     width: '100%',
@@ -64,12 +74,12 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     marginTop: 20,
-    flexDirection: 'column', // Arrange buttons in columns
+    flexDirection: 'column', 
   },
   row: {
-    flexDirection: 'row', // Arrange buttons in rows within each column
-    justifyContent: 'space-between', // Space buttons evenly within each row
-    width: '80%', // Adjust width as needed
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    width: '80%', 
   },
   buttonText: {
     padding: 10,

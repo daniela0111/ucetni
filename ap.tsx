@@ -1,19 +1,26 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
-import { NavigationContainer, RouteProp } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import type { RouteProp } from '@react-navigation/native';
+
+import { useEffect, useRef, useState } from 'react';
+import { Camera } from 'expo-camera';
+import { shareAsync} from 'expo-sharing';
+import * as MediaLibrary from 'expo-media-library';
+import 'react-native-gesture-handler';
 
 // Assuming you have separate component files for each screen:
-import HomePage from './HomePage'; // Import the corrected HomePage component
+import HomePage from './HomePage';
 import SettingsScreen from './SettingScreen';
 import PhotoScreen from './PhotoScreen';
-import DokladyVydane from './DokladyVydane'; 
+import DokladyVydane from './DokladyVydane';
 import DokladyPrijate from './DokladyPrijate';
-import Uctenky from './Uctenky';
 import OstatniDoklady from './OstatniDoklady';
+import Uctenky from './Uctenky';
+
 
 // Define the parameter list for the bottom tab navigator
 type TabParamList = {
@@ -23,19 +30,6 @@ type TabParamList = {
 };
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
-
-const DokladyStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Doklady" component={HomePage} options={{ headerShown: false }} />
-      <Stack.Screen name="DokladyVydane" component={DokladyVydane} />
-      <Stack.Screen name="DokladyPrijate" component={DokladyPrijate} />
-      <Stack.Screen name="Uctenky" component={Uctenky} />
-      <Stack.Screen name="OstatniDoklady" component={OstatniDoklady} />
-    </Stack.Navigator>
-  );
-};
 
 const App: React.FC = () => {
   return (
@@ -76,7 +70,7 @@ const App: React.FC = () => {
             },
           })}
         >
-          <Tab.Screen name="Doklady" component={DokladyStack} options={{ headerShown: false }} /> 
+          <Tab.Screen name="Doklady" component={HomePage} options={{ headerShown: false }} />
           <Tab.Screen name="Scanner" component={PhotoScreen} options={{ headerShown: false }} />
           <Tab.Screen name="Nápověda" component={SettingsScreen} options={{ headerShown: false }} />
         </Tab.Navigator>

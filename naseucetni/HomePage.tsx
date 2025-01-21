@@ -25,27 +25,35 @@ const HomePage = () => {
       <View style={styles.buttonsContainer}>
         <View style={styles.row}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('DokladyVydane')} // Corrected navigation call
+            onPress={() => navigation.navigate('DokladyVydane')} 
           >
-            <Image source={require('./assets/dokladyvydane.png')} />
-            <Text style={styles.buttonText}>Doklady vydané</Text>
+            <View style={{ alignItems: 'center' }}> 
+              <Image source={require('./assets/dokladyvydane.png')} />
+              <Text style={styles.buttonText}>Doklady vydané</Text>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('DokladyPrijate')}>
-            <Image source={require('./assets/dokladyprijate.png')} />
-            <Text style={styles.buttonText}>Doklady přijaté</Text>
+            <View style={{ alignItems: 'center' }}> 
+              <Image source={require('./assets/dokladyprijate.png')} />
+              <Text style={styles.buttonText}>Doklady přijaté</Text>
+            </View>
           </TouchableOpacity>
         </View>
 
         <View style={styles.row}>
           <TouchableOpacity onPress={() => navigation.navigate('Uctenky')}>
-            <Image source={require('./assets/uctenky.png')} />
-            <Text style={styles.buttonText}>Účtenky</Text>
+            <View style={{ alignItems: 'center' }}> 
+              <Image source={require('./assets/uctenky.png')} />
+              <Text style={styles.buttonText}>Účtenky</Text>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('OstatniDoklady')}>
-            <Image source={require('./assets/ostatnidoklady.png')} />
-            <Text style={styles.buttonText}>Ostatní Doklady</Text>
+            <View style={{ alignItems: 'center' }}> 
+              <Image source={require('./assets/ostatnidoklady.png')} />
+              <Text style={styles.buttonText}>Ostatní Doklady</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
