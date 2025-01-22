@@ -95,13 +95,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#060663', // Updated color for better readability
+    color: '#C00006', 
+    textAlign: 'center',
   },
   logo: {
     width: '100%',
     resizeMode: 'contain',
-    marginBottom: 50,
-    marginTop: 70,
+    marginBottom: 30,
+    marginTop: 100,
   },
   faqContainer: {
     borderBottomWidth: 1,
