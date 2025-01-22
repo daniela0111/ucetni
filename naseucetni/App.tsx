@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Assuming you have separate component files for each screen:
-import HomePage from './HomePage'; // Import the corrected HomePage component
+import HomePage from './HomePage'; 
 import SettingsScreen from './SettingScreen';
 import PhotoScreen from './PhotoScreen';
 import DokladyVydane from './DokladyVydane'; 

@@ -15,8 +15,6 @@ interface FAQ {
   answer: string;
 }
 
-
-
 const faqs: FAQ[] = [
   {
     question: 'How to upload a document?',
@@ -32,7 +30,8 @@ const faqs: FAQ[] = [
   },
 ];
 
-const SettingsScreen: React.FC<SettingsScreenProps> = () => {
+const SettingsScreen: React.FC = () => { // Removed SettingsScreenProps as it's not used
+
   const [isExpanded, setIsExpanded] = useState<boolean[]>(Array(faqs.length).fill(false));
 
   const toggleExpand = useCallback((index: number) => {
@@ -41,7 +40,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = () => {
     setIsExpanded(newExpanded);
   }, [isExpanded]);
 
-  const renderFAQ = ({ item, index }) => {
+  const renderFAQ = ({ item, index }: { item: FAQ; index: number }) => { // Added type annotations for item and index
     return (
       <View style={styles.faqContainer}>
         <TouchableOpacity
@@ -68,6 +67,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = () => {
 
   return (
     <View style={styles.container}>
+      <Image source={require('./assets/logo.png')} style={styles.logo} /> {/* Assumes 'your_logo.png' is in the same directory */}
       <Text style={styles.supportTitle}>Support</Text>
       <FlatList
         data={faqs}
@@ -89,16 +89,23 @@ const SettingsScreen: React.FC<SettingsScreenProps> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 30,
   },
   supportTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#060663', // Updated color for better readability
+  },
+  logo: {
+    width: '100%',
+    resizeMode: 'contain',
+    marginBottom: 50,
+    marginTop: 70,
   },
   faqContainer: {
     borderBottomWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#060663',
     marginBottom: 10,
   },
   faqQuestion: {
@@ -107,32 +114,31 @@ const styles = StyleSheet.create({
   },
   faqAnswer: {
     fontSize: 14,
-    color: '#666',
+    color: '#060663',
   },
   faqIconContainer: {
     marginLeft: 5,
   },
   faqIcon: {
     fontSize: 18,
+    color: '#060663',
   },
   supportContact: {
-    marginTop: 20,
+    marginTop: 60,
     borderWidth: 1,
     borderColor: '#060663',
     padding: 12,
+    borderRadius: 10,
+    marginBottom: 40,
   },
   supportContactTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: '#060663',
   },
   supportContactPhone: {
     color: '#060663',
-  },
-  logo: {
-    width: '100%',
-    resizeMode: 'contain',
-    marginTop: 20,
   },
 });
 
