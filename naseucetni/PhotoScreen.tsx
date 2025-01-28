@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { Camera, CameraType } from 'expo-camera';
+import { Camera } from 'expo-camera';
 import { shareAsync } from 'expo-sharing';
 import * as MediaLibrary from 'expo-media-library';
-import { launchImageLibraryAsync } from 'expo-image-picker';
+import {  CameraType, launchImageLibraryAsync } from 'expo-image-picker';
 import { ImagePickerResult } from 'expo-image-picker';
 import { doc, setDoc, getFirestore } from 'firebase/firestore';
-import { getStorage, ref, uploadBytesResumable, UploadTask } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable, UploadTask } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 
 // Firebase configuration
