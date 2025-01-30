@@ -8,29 +8,13 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { Camera, CameraType } from 'expo-camera';
+import { Camera } from 'expo-camera';
 import { shareAsync } from 'expo-sharing';
 import * as MediaLibrary from 'expo-media-library';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
-import { doc, setDoc, getFirestore } from 'firebase/firestore';
-import { getDownloadURL, getStorage, ref, uploadBytesResumable, UploadTask } from 'firebase/storage';
-import { initializeApp } from 'firebase/app';
-
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDup_1PuUFSLm4ZHPLgUJVuDCGEudBVhWk",
-  authDomain: "naseucetni-database.firebaseapp.com",
-  projectId: "naseucetni-database",
-  storageBucket: "naseucetni-database.appspot.com",
-  messagingSenderId: "33185754458",
-  appId: "1:33185754458:web:125a2adeb95cab7afe9763",
-  measurementId: "G-VS19N5MB79"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(app);
+import { doc, setDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+//import { db, storage } from '../src/config/firebase';
 
 interface PhotoScreenProps {}
 
@@ -44,6 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 20,
+    gap: 20,
   },
   preview: {
     flex: 1,
@@ -58,21 +43,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#f00',
     marginBottom: 20,
   },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    padding: 10,
+  },
 });
 
 const PhotoScreen: React.FC<PhotoScreenProps> = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState<boolean | null>(null);
   const [photo, setPhoto] = useState<string | null>(null);
-  const [selectedCollection, setSelectedCollection] = useState<string | null>(null);
+  const [selectedCollection] = useState<string>('default');
   const cameraRef = useRef<Camera>(null);
 
   useEffect(() => {
     (async () => {
-      const cameraPermission = await Camera.requestCameraPermissionsAsync();
-      const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
-      setHasCameraPermission(cameraPermission.status === 'granted');
-      setHasMediaLibraryPermission(mediaLibraryPermission.status === 'granted');
+      try {
+        const cameraPermission = await Camera.requestCameraPermissionsAsync();
+        const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
+        setHasCameraPermission(cameraPermission.status === 'granted');
+        setHasMediaLibraryPermission(mediaLibraryPermission.status === 'granted');
+      } catch (error) {
+        console.error('Permission error:', error);
+      }
     })();
   }, []);
 
@@ -80,47 +74,47 @@ const PhotoScreen: React.FC<PhotoScreenProps> = () => {
     if (hasCameraPermission && cameraRef.current) {
       try {
         const data = await cameraRef.current.takePictureAsync({
-          quality: 1,
+          quality: 0.8,
           base64: true,
           exif: true,
         });
         setPhoto(data.uri);
       } catch (error) {
         console.error('Error taking picture:', error);
+        Alert.alert('Error capturing photo');
       }
     }
   };
 
   const handleChooseFromLibrary = async () => {
-    const result = await launchImageLibraryAsync({
-      mediaTypes: MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled && result.assets) {
-      setPhoto(result.assets[0].uri);
-    }
-  };
-
-  const handleImage = async () => {
-    if (selectedCollection && photo) {
-      await uploadImageToFirebase(photo, selectedCollection);
-    } else {
-      Alert.alert('Please select a collection');
-    }
-  };
-
-  const uploadImageToFirebase = async (imageUrl: string, collectionName: string) => {
     try {
-      const response = await fetch(imageUrl);
+      const result = await launchImageLibraryAsync({
+        mediaTypes: MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 0.8,
+      });
+
+      if (!result.canceled && result.assets) {
+        setPhoto(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error('Gallery error:', error);
+      Alert.alert('Error accessing gallery');
+    }
+  };
+
+  const handleImageUpload = async () => {
+    if (!photo) return;
+
+    try {
+      const response = await fetch(photo);
       const blob = await response.blob();
-      const storageRef = ref(storage, `images/${collectionName}/${Date.now()}`);
-      const uploadTask: UploadTask = uploadBytesResumable(storageRef, blob);
+      const storageRef = ref(storage, `images/${selectedCollection}/${Date.now()}`);
+      const uploadTask = uploadBytesResumable(storageRef, blob);
 
       uploadTask.on('state_changed',
-        () => {},
+        null,
         (error) => {
           console.error('Upload error:', error);
           Alert.alert('Upload failed');
@@ -128,7 +122,7 @@ const PhotoScreen: React.FC<PhotoScreenProps> = () => {
         async () => {
           try {
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            await setDoc(doc(db, collectionName, Date.now().toString()), {
+            await setDoc(doc(db, selectedCollection, Date.now().toString()), {
               imageUrl: downloadURL,
               timestamp: new Date(),
             });
@@ -140,21 +134,31 @@ const PhotoScreen: React.FC<PhotoScreenProps> = () => {
         }
       );
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error('Upload process error:', error);
       Alert.alert('Upload failed');
     }
   };
 
   const handleShare = async () => {
     if (photo) {
-      await shareAsync(photo);
+      try {
+        await shareAsync(photo);
+      } catch (error) {
+        console.error('Sharing error:', error);
+        Alert.alert('Sharing failed');
+      }
     }
   };
 
   const handleSave = async () => {
     if (photo && hasMediaLibraryPermission) {
-      await MediaLibrary.saveToLibraryAsync(photo);
-      Alert.alert('Photo saved to library!');
+      try {
+        await MediaLibrary.saveToLibraryAsync(photo);
+        Alert.alert('Photo saved to library!');
+      } catch (error) {
+        console.error('Save error:', error);
+        Alert.alert('Error saving photo');
+      }
     }
   };
 
@@ -165,19 +169,20 @@ const PhotoScreen: React.FC<PhotoScreenProps> = () => {
           <Image
             style={styles.preview}
             source={{ uri: photo }}
+            resizeMode="contain"
           />
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={() => setPhoto(null)}>
-              <Text>Retake</Text>
+              <Text style={styles.buttonText}>Retake</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleSave}>
-              <Text>Save</Text>
+              <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleShare}>
-              <Text>Share</Text>
+              <Text style={styles.buttonText}>Share</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleImage}>
-              <Text>Upload</Text>
+            <TouchableOpacity onPress={handleImageUpload}>
+              <Text style={styles.buttonText}>Upload</Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -186,7 +191,7 @@ const PhotoScreen: React.FC<PhotoScreenProps> = () => {
           {hasCameraPermission ? (
             <Camera
               style={styles.preview}
-              type={CameraType.back}
+              type={Camera.Constants.Type.back}
               ref={cameraRef}
             >
               <View style={styles.buttonContainer}>
@@ -195,12 +200,12 @@ const PhotoScreen: React.FC<PhotoScreenProps> = () => {
                   onPress={handleTakePicture}
                 />
                 <TouchableOpacity onPress={handleChooseFromLibrary}>
-                  <Text style={{ color: 'white' }}>Gallery</Text>
+                  <Text style={styles.buttonText}>Gallery</Text>
                 </TouchableOpacity>
               </View>
             </Camera>
           ) : (
-            <Text>No camera permission</Text>
+            <Text style={styles.buttonText}>Camera permission required</Text>
           )}
         </View>
       )}
