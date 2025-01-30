@@ -14,7 +14,7 @@ import * as MediaLibrary from 'expo-media-library';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-//import { db, storage } from '../src/config/firebase';
+import { db, storage } from './firebase';
 
 interface PhotoScreenProps {}
 

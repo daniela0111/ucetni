@@ -1,5 +1,5 @@
+// src/config/firebase.ts
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -13,10 +13,9 @@ const firebaseConfig = {
   measurementId: "G-VS19N5MB79"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-export { db, storage, analytics };
-export default Firebase;
+export { db, storage };
