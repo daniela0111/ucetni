@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 
-// Assuming you have separate component files for each screen:
+//screen import
 import HomePage from './HomePage'; 
 import SettingsScreen from './SettingScreen';
 import PhotoScreen from './PhotoScreen';
@@ -46,18 +46,18 @@ const App: React.FC = () => {
           screenOptions={({ route }: { route: RouteProp<any, any> }) => ({
             tabBarStyle: {
               backgroundColor: '#060663', // Tab bar background color
-              height: 80, // Increased height to make the tab larger
+              height: 80, 
             },
             tabBarIcon: ({ color }: { color: string }) => { // Explicitly type 'color' as string
               let iconName: string;
 
-              // Set the icon name based on the route
+              //icon name based on the route
               switch (route.name) {
                 case 'Doklady':
                   iconName = 'home';
                   break;
                 case 'Scanner':
-                  iconName = 'plus'; // More accurate icon for scanning
+                  iconName = 'plus'; 
                   break;
                 case 'Nápověda':
                   iconName = 'help';
@@ -70,7 +70,7 @@ const App: React.FC = () => {
                 <MaterialCommunityIcons
                   name={iconName as keyof typeof MaterialCommunityIcons.glyphMap}
                   color={color} // Button icon color
-                  size={30} // Adjust the size of the icons as necessary
+                  size={30} 
                 />
               );
             },
