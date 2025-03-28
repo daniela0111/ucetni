@@ -194,6 +194,7 @@ const PhotoScreen: React.FC<PhotoScreenProps> = () => {
               type={Camera.Constants.Type.back}
               ref={cameraRef}
             >
+              
               <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={styles.captureButton}
